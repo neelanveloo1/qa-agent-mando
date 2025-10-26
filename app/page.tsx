@@ -548,7 +548,6 @@ export default function QAAgentPage() {
             <Card className="max-w-md mx-auto border-2 shadow-lg hover:shadow-xl transition-shadow">
           <CardHeader>
                 <CardTitle className="text-xl font-light">Start Agent</CardTitle>
-                <CardDescription className="text-base font-light">Enter a URL or magic link to start the agent</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
