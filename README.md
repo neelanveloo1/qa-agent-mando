@@ -18,6 +18,11 @@ A production-ready QA automation tool powered by Playwright for testing the Mand
 - OpenAI API key for Vision AI analysis
 - Access to Mando staging or production environment
 
+## ⚠️ Important Notes
+
+- **Screenshot Management**: This app captures screenshots every 2 seconds during active sessions and stores them locally. Screenshots can quickly accumulate and take up significant disk space. Always use "End Session" before closing, and periodically clean up screenshots from `public/screenshots/` directory.
+- **Session Cleanup**: Always click "End Session" when done testing to properly clean up browser sessions and stop screenshot capture.
+
 ## Setup
 
 1. Clone the repository:
@@ -150,6 +155,22 @@ The tool uses GPT-4 Vision API to:
 | Variable | Description | Required |
 |----------|-------------|----------|
 | `OPENAI_API_KEY` | Your OpenAI API key for Vision AI | Yes |
+
+## Important: Screenshot Management
+
+⚠️ **The app takes screenshots every 2 seconds when the agent is active** and stores them in:
+```
+public/screenshots/
+```
+
+**Before closing or ending your session:**
+1. Always click "End Session" to properly clean up
+2. Your screenshots are stored at `/Users/[your-username]/Downloads/qa-agent/public/screenshots/`
+3. Screenshots can accumulate quickly - delete them periodically to free up disk space
+
+**To delete screenshots:**
+- Use the "Screenshots" button in the active agent status bar to view and delete screenshots via the UI
+- Or manually delete from: `public/screenshots/` directory in your project folder
 
 ## Security Notes
 
