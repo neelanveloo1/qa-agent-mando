@@ -45,17 +45,23 @@ export async function POST(request: NextRequest) {
     await page.getByRole('textbox').fill(otp)
     console.log("[OTP STEP 2] OTP entered successfully")
 
-    // Submit OTP - wait for navigation to complete
-    // Based on the Inspector test, after filling OTP, we should navigate to /ai-search
-    console.log("[OTP STEP 3] Waiting 1s for OTP auto-submit and navigation...")
-    await page.waitForTimeout(1000) // Wait for auto-submit and navigation
-    console.log("[OTP STEP 3] Wait complete")
+    // Wait for navigation away from login page (up to 10 seconds)
+    console.log("[OTP STEP 3] Waiting for navigation away from login page...")
+    try {
+      await page.waitForFunction(
+        () => !window.location.href.includes('/auth/login'),
+        { timeout: 10000 }
+      )
+      console.log("[OTP STEP 3] Navigation detected")
+    } catch (waitError) {
+      console.log("[OTP STEP 3] Navigation wait error:", waitError)
+    }
 
-    // Check if login was successful by checking URL change
+    // Get current URL after waiting
     const currentUrl = page.url()
     console.log("[OTP STEP 4] Current URL after OTP:", currentUrl)
 
-    // Simple and reliable login detection: check if we're no longer on login page
+    // Check if we're no longer on login page
     const isLoggedIn = !currentUrl.includes('/auth/login')
     console.log("[OTP STEP 4] Login successful:", isLoggedIn)
 
